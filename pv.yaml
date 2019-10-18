@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-pvc
+  namespace: kube-ops
+spec:
+  nfs:
+    path: /opt/nfs/gitlab/gitlab
+    server: 192.168.6.188 #这里是你nfs服务器地址
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+    storage: 1Gi # 这里定义大小
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-redis-pvc
+  namespace: kube-ops
+spec:
+  nfs:
+    path: /opt/nfs/gitlab/redis
+    server: 192.168.6.188 #这里是你nfs服务器地址
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+    storage: 1Gi # 这里定义大小
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitlab-postgresql-pvc
+  namespace: kube-ops
+spec:
+  nfs:
+    path: /opt/nfs/gitlab/postgresql
+    server: 192.168.6.188 #这里是你nfs服务器地址
+  accessModes: ["ReadWriteOnce"]
+  capacity:
+    storage: 1Gi # 这里定义大小
