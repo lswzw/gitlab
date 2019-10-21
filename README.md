@@ -1,2 +1,1 @@
-# gitlab
-k8s 搭建 gitlab
+https://github.com/sameersbn/docker-gitlab/tree/master/kubernetes

@@ -1,11 +1,12 @@
-apiVersion: apps/v1beta1
-kind: Deployment
+apiVersion: v1
+kind: ReplicationController
 metadata:
   name: postgresql
-  namespace: kube-ops
-  labels:
-    name: postgresql
+  namespace: gitlab
 spec:
+  replicas: 1
+  selector:
+    name: postgresql
   template:
     metadata:
       name: postgresql
@@ -14,8 +15,7 @@ spec:
     spec:
       containers:
       - name: postgresql
-        image: sameersbn/postgresql
-        imagePullPolicy: IfNotPresent
+        image: sameersbn/postgresql:10-2 
         env:
         - name: DB_USER
           value: gitlab
@@ -53,20 +53,4 @@ spec:
           timeoutSeconds: 1
       volumes:
       - name: data
-        persistentVolumeClaim:
-          claimName: gitlab-postgresql-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: postgresql
-  namespace: kube-ops
-  labels:
-    name: postgresql
-spec:
-  ports:
-    - name: postgres
-      port: 5432
-      targetPort: postgres
-  selector:
-    name: postgresql
+        emptyDir: {}
